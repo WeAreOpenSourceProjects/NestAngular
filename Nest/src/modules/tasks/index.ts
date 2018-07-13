@@ -1,4 +1,3 @@
-export * from './task.entity';
-export * from './task.find.middleware';
-export * from './tasks.controller';
-export * from './tasks.service';
+export { Task } from './entities/task.entity';
+export { TaskService } from './services/task.service';
+export { TaskModule } from './tasks.module';
