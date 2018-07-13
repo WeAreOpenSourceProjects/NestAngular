@@ -1,25 +1,26 @@
-import { Module, NestModule, RequestMethod, MiddlewareConsumer, OnModuleInit } from '@nestjs/common';
-import { TasksController, TasksService, TaskFindMiddleware, Task } from './';
+import { Module } from '@nestjs/common';
+import { TaskController } from './controllers/task.controller';
+import { TaskService } from './services/task.service';
+import { Task } from './entities/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import { User } from '../user';
+// import { TaskByIdPipe } from './pipes/task-by-id.pipe';
+import { MongooseModule } from '@nestjs/mongoose';
+import { taskSchema } from './schemas/task.schema';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Task]),
+//    TypeOrmModule.forFeature([Task]),
+    MongooseModule.forFeature([
+      { name: 'task', schema: taskSchema },
+    ]),
   ],
   controllers: [
-    TasksController,
+    TaskController,
   ],
   providers: [
-    TasksService,
+    TaskService,
+//    TaskByIdPipe,
   ],
 })
-export class TaskModule /* implements NestModule */ {
-  public configure(consumer: MiddlewareConsumer) {
-//    consumer.apply(TaskFindMiddleware).forRoutes({
-//      path: 'commands/:id', method: RequestMethod.ALL,
-//    });
-//    consumer.apply(AuthenticationMiddleware).forRoutes({
-//      path: 'commands/', method: RequestMethod.ALL,
-//    });
-  }
-}
+export class TaskModule { }
